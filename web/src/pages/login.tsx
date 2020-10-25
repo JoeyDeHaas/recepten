@@ -1,25 +1,25 @@
 import React from "react";
-import { Formik, Form } from "formik";
-import { Box, Button, Link, Flex } from "@chakra-ui/core";
-import { Wrapper } from "../components/Wrapper";
-import { InputField } from "../components/InputField";
-import { useLoginMutation, MeQuery, MeDocument } from "../generated/graphql";
-import { toErrorMap } from "../utils/toErrorMap";
-import { useRouter } from "next/router";
+import {Form, Formik} from "formik";
+import {Box, Button, Flex, Link} from "@chakra-ui/core";
+import {Wrapper} from "../components/Wrapper";
+import {InputField} from "../components/InputField";
+import {MeDocument, MeQuery, useLoginMutation} from "../generated/graphql";
+import {toErrorMap} from "../utils/toErrorMap";
+import {useRouter} from "next/router";
 import NextLink from "next/link";
-import { withApollo } from "../utils/withApollo";
+import {withApollo} from "../utils/withApollo";
 
-const Login: React.FC<{}> = ({}) => {
+const Login: React.FC = ({}) => {
   const router = useRouter();
   const [login] = useLoginMutation();
   return (
     <Wrapper variant="small">
       <Formik
-        initialValues={{ usernameOrEmail: "", password: "" }}
-        onSubmit={async (values, { setErrors }) => {
+        initialValues={{usernameOrEmail: "", password: ""}}
+        onSubmit={async (values, {setErrors}) => {
           const response = await login({
             variables: values,
-            update: (cache, { data }) => {
+            update: (cache, {data}) => {
               cache.writeQuery<MeQuery>({
                 query: MeDocument,
                 data: {
@@ -27,7 +27,7 @@ const Login: React.FC<{}> = ({}) => {
                   me: data?.login.user,
                 },
               });
-              cache.evict({ fieldName: "recipes:{}" });
+              cache.evict({fieldName: "recipes:{}"});
             },
           });
           if (response.data?.login.errors) {
@@ -42,7 +42,7 @@ const Login: React.FC<{}> = ({}) => {
           }
         }}
       >
-        {({ isSubmitting }) => (
+        {({isSubmitting}) => (
           <Form>
             <InputField
               name="usernameOrEmail"
@@ -77,4 +77,4 @@ const Login: React.FC<{}> = ({}) => {
   );
 };
 
-export default withApollo({ ssr: false })(Login);
+export default withApollo({ssr: false})(Login);

@@ -1,22 +1,22 @@
 import "reflect-metadata";
 import "dotenv-safe/config";
-import { __prod__, COOKIE_NAME } from "./constants";
+import {__prod__, COOKIE_NAME} from "./constants";
 import express from "express";
-import { ApolloServer } from "apollo-server-express";
-import { buildSchema } from "type-graphql";
-import { RecipeResolver } from "./resolvers/recipe";
-import { UserResolver } from "./resolvers/user";
+import {ApolloServer} from "apollo-server-express";
+import {buildSchema} from "type-graphql";
+import {RecipeResolver} from "./resolvers/recipe";
+import {UserResolver} from "./resolvers/user";
 import Redis from "ioredis";
 import session from "express-session";
 import connectRedis from "connect-redis";
 import cors from "cors";
-import { createConnection } from "typeorm";
-import { Recipe } from "./entities/Recipe";
-import { User } from "./entities/User";
+import {createConnection} from "typeorm";
+import {Recipe} from "./entities/Recipe";
+import {User} from "./entities/User";
 import path from "path";
-import { Updoot } from "./entities/Updoot";
-import { createUserLoader } from "./utils/createUserLoader";
-import { createUpdootLoader } from "./utils/createUpdootLoader";
+import {Updoot} from "./entities/Updoot";
+import {createUserLoader} from "./utils/createUserLoader";
+import {createUpdootLoader} from "./utils/createUpdootLoader";
 
 const main = async () => {
   await createConnection({
@@ -27,21 +27,21 @@ const main = async () => {
     migrations: [path.join(__dirname, "./migrations/*")],
     entities: [Recipe, User, Updoot],
   });
-  // await conn.runMigrations();
-
-  // await Recipe.delete({});
 
   const app = express();
 
   const RedisStore = connectRedis(session);
   const redis = new Redis(process.env.REDIS_URL);
+
   app.set("trust proxy", 1);
+
   app.use(
     cors({
       origin: process.env.CORS_ORIGIN,
       credentials: true,
     })
   );
+
   app.use(
     session({
       name: COOKIE_NAME,
@@ -67,7 +67,7 @@ const main = async () => {
       resolvers: [RecipeResolver, UserResolver],
       validate: false,
     }),
-    context: ({ req, res }) => ({
+    context: ({req, res}) => ({
       req,
       res,
       redis,

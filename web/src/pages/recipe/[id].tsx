@@ -1,12 +1,12 @@
 import React from "react";
-import { Layout } from "../../components/Layout";
-import { Heading, Box } from "@chakra-ui/core";
-import { withApollo } from "../../utils/withApollo";
+import {Layout} from "../../components/Layout";
+import {Box, Heading} from "@chakra-ui/core";
+import {withApollo} from "../../utils/withApollo";
 import {useGetRecipeFromUrl} from "../../utils/useGetRecipeFromUrl";
 import {EditDeleteRecipeButtons} from "../../components/EditDeleteRecipeButtons";
 
 const Recipe = ({}) => {
-  const { data, error, loading } = useGetRecipeFromUrl();
+  const {data, error, loading} = useGetRecipeFromUrl();
 
   if (loading) {
     return (
@@ -40,4 +40,4 @@ const Recipe = ({}) => {
   );
 };
 
-export default withApollo({ ssr: true })(Recipe);
+export default withApollo({ssr: true})(Recipe);

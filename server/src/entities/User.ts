@@ -1,4 +1,4 @@
-import { ObjectType, Field } from "type-graphql";
+import {ObjectType, Field} from "type-graphql";
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -8,8 +8,8 @@ import {
   BaseEntity,
   OneToMany,
 } from "typeorm";
-import { Recipe } from "./Recipe";
-import { Updoot } from "./Updoot";
+import {Recipe} from "./Recipe";
+import {Updoot} from "./Updoot";
 
 @ObjectType()
 @Entity()
@@ -19,11 +19,11 @@ export class User extends BaseEntity {
   id!: number;
 
   @Field()
-  @Column({ unique: true })
+  @Column({unique: true})
   username!: string;
 
   @Field()
-  @Column({ unique: true })
+  @Column({unique: true})
   email!: string;
 
   @Column()

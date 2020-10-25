@@ -1,30 +1,25 @@
-import React, { useState } from "react";
-import { NextPage } from "next";
-import { Wrapper } from "../../components/Wrapper";
-import { Formik, Form } from "formik";
-import { toErrorMap } from "../../utils/toErrorMap";
-import { InputField } from "../../components/InputField";
-import { Box, Button, Link, Flex } from "@chakra-ui/core";
-import {
-  useChangePasswordMutation,
-  MeDocument,
-  MeQuery,
-} from "../../generated/graphql";
-import { useRouter } from "next/router";
-import { withUrqlClient } from "next-urql";
-import { createUrqlClient } from "../../utils/createUrqlClient";
+import React, {useState} from "react";
+import {NextPage} from "next";
+import {Wrapper} from "../../components/Wrapper";
+import {Form, Formik} from "formik";
+import {toErrorMap} from "../../utils/toErrorMap";
+import {InputField} from "../../components/InputField";
+import {Box, Button, Flex, Link} from "@chakra-ui/core";
+import {MeDocument, MeQuery, useChangePasswordMutation,} from "../../generated/graphql";
+import {useRouter} from "next/router";
 import NextLink from "next/link";
-import { withApollo } from "../../utils/withApollo";
+import {withApollo} from "../../utils/withApollo";
 
 const ChangePassword: NextPage = () => {
   const router = useRouter();
   const [changePassword] = useChangePasswordMutation();
   const [tokenError, setTokenError] = useState("");
+
   return (
     <Wrapper variant="small">
       <Formik
-        initialValues={{ newPassword: "" }}
-        onSubmit={async (values, { setErrors }) => {
+        initialValues={{newPassword: ""}}
+        onSubmit={async (values, {setErrors}) => {
           const response = await changePassword({
             variables: {
               newPassword: values.newPassword,
@@ -33,7 +28,7 @@ const ChangePassword: NextPage = () => {
                   ? router.query.token
                   : "",
             },
-            update: (cache, { data }) => {
+            update: (cache, {data}) => {
               cache.writeQuery<MeQuery>({
                 query: MeDocument,
                 data: {
@@ -50,12 +45,11 @@ const ChangePassword: NextPage = () => {
             }
             setErrors(errorMap);
           } else if (response.data?.changePassword.user) {
-            // worked
             router.push("/");
           }
         }}
       >
-        {({ isSubmitting }) => (
+        {({isSubmitting}) => (
           <Form>
             <InputField
               name="newPassword"
@@ -65,7 +59,7 @@ const ChangePassword: NextPage = () => {
             />
             {tokenError ? (
               <Flex>
-                <Box mr={2} style={{ color: "red" }}>
+                <Box mr={2} style={{color: "red"}}>
                   {tokenError}
                 </Box>
                 <NextLink href="/forgot-password">
@@ -88,4 +82,4 @@ const ChangePassword: NextPage = () => {
   );
 };
 
-export default withApollo({ ssr: false })(ChangePassword);
+export default withApollo({ssr: false})(ChangePassword);

@@ -12,6 +12,7 @@ const CreateRecipe: React.FC = () => {
   const router = useRouter();
   useIsAuth();
   const [createRecipe] = useCreateRecipeMutation();
+
   return (
     <Layout variant="small">
       <Formik

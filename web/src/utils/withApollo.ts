@@ -1,7 +1,7 @@
-import { createWithApollo } from "./createWithApollo";
-import { ApolloClient, InMemoryCache } from "@apollo/client";
-import { PaginatedRecipes } from "../generated/graphql";
-import { NextPageContext } from "next";
+import {createWithApollo} from "./createWithApollo";
+import {ApolloClient, InMemoryCache} from "@apollo/client";
+import {PaginatedRecipes} from "../generated/graphql";
+import {NextPageContext} from "next";
 
 const createClient = (ctx: NextPageContext) =>
   new ApolloClient({
