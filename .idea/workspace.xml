@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="60e9fc27-df43-4dea-97d5-9a065ba53611" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="ProjectId" id="1jNHyWtbdcQEBOjLqZZYK4gMaVA" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="postgresql" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/server" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="ts.external.directory.path" value="$PROJECT_DIR$/web/node_modules/typescript/lib" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/server" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="60e9fc27-df43-4dea-97d5-9a065ba53611" name="Default Changelist" comment="" />
+      <created>1603637883279</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1603637883279</updated>
+      <workItem from="1603637884316" duration="4791000" />
+      <workItem from="1603654840325" duration="1828000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="555" y="192" width="800" height="684" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1603638472610">
+      <screen x="0" y="27" width="1920" height="1007" />
+    </state>
+    <state x="555" y="192" width="800" height="684" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.27.1920.1007@0.27.1920.1007" timestamp="1603638472610" />
+    <state x="693" y="279" width="524" height="509" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1603640794116">
+      <screen x="0" y="27" width="1920" height="1007" />
+    </state>
+    <state x="693" y="279" width="524" height="509" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.27.1920.1007@0.27.1920.1007" timestamp="1603640794116" />
+    <state x="837" y="294" width="367" height="487" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1" timestamp="1603641019489">
+      <screen x="0" y="27" width="1920" height="1007" />
+    </state>
+    <state x="837" y="294" width="367" height="487" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1/0.27.1920.1007@0.27.1920.1007" timestamp="1603641019489" />
+    <state x="693" y="338" width="524" height="391" key="com.intellij.database.dbimport.ImportUtil.ChooseTargetDialog" timestamp="1603641080872">
+      <screen x="0" y="27" width="1920" height="1007" />
+    </state>
+    <state x="693" y="338" width="524" height="391" key="com.intellij.database.dbimport.ImportUtil.ChooseTargetDialog/0.27.1920.1007@0.27.1920.1007" timestamp="1603641080872" />
+    <state x="651" y="269" width="619" height="522" key="find.popup" timestamp="1603641648798">
+      <screen x="0" y="27" width="1920" height="1007" />
+    </state>
+    <state x="651" y="269" width="619" height="522" key="find.popup/0.27.1920.1007@0.27.1920.1007" timestamp="1603641648798" />
+    <state x="624" y="240" key="run.anything.popup" timestamp="1603639498562">
+      <screen x="0" y="27" width="1920" height="1007" />
+    </state>
+    <state x="624" y="240" key="run.anything.popup/0.27.1920.1007@0.27.1920.1007" timestamp="1603639498562" />
+    <state x="623" y="247" width="672" height="678" key="search.everywhere.popup" timestamp="1603642228834">
+      <screen x="0" y="27" width="1920" height="1007" />
+    </state>
+    <state x="623" y="247" width="672" height="678" key="search.everywhere.popup/0.27.1920.1007@0.27.1920.1007" timestamp="1603642228834" />
+  </component>
+</project>

@@ -1,0 +1,8 @@
+query Recipes($limit: Int!, $cursor: String) {
+  recipes(limit: $limit, cursor: $cursor) {
+    hasMore
+    recipes {
+      ...RecipeSnippet
+    }
+  }
+}

@@ -1,0 +1,14 @@
+fragment RecipeSnippet on Recipe {
+  id
+  createdAt
+  updatedAt
+  title
+  preparationTime
+  preparation
+  points
+  voteStatus
+  creator {
+    id
+    username
+  }
+}

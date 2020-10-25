@@ -1,0 +1,16 @@
+query Recipe($id: Int!) {
+  recipe(id: $id) {
+    id
+    createdAt
+    updatedAt
+    title
+    points
+    preparationTime
+    preparation
+    voteStatus
+    creator {
+      id
+      username
+    }
+  }
+}
