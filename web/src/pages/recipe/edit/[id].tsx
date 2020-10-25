@@ -1,17 +1,17 @@
-import { Box, Button } from "@chakra-ui/core";
-import { Form, Formik } from "formik";
-import { useRouter } from "next/router";
+import {Box, Button} from "@chakra-ui/core";
+import {Form, Formik} from "formik";
+import {useRouter} from "next/router";
 import React from "react";
-import { InputField } from "../../../components/InputField";
-import { Layout } from "../../../components/Layout";
-import { useGetIntId } from "../../../utils/useGetIntId";
-import { withApollo } from "../../../utils/withApollo";
+import {InputField} from "../../../components/InputField";
+import {Layout} from "../../../components/Layout";
+import {useGetIntId} from "../../../utils/useGetIntId";
+import {withApollo} from "../../../utils/withApollo";
 import {useRecipeQuery, useUpdateRecipeMutation} from "../../../generated/graphql";
 
 const EditRecipe = ({}) => {
   const router = useRouter();
   const intId = useGetIntId();
-  const { data, loading } = useRecipeQuery({
+  const {data, loading} = useRecipeQuery({
     skip: intId === -1,
     variables: {
       id: intId,
@@ -37,16 +37,20 @@ const EditRecipe = ({}) => {
   return (
     <Layout variant="small">
       <Formik
-        initialValues={{ title: data.recipe.title, preparation: data.recipe.preparation, preparationTime: data.recipe.preparationTime }}
+        initialValues={{
+          title: data.recipe.title,
+          preparation: data.recipe.preparation,
+          preparationTime: data.recipe.preparationTime
+        }}
         onSubmit={async (values) => {
-          await updateRecipe({ variables: { id: intId, ...values } });
+          await updateRecipe({variables: {id: intId, ...values}});
           router.back();
         }}
       >
-        {({ isSubmitting }) => (
+        {({isSubmitting}) => (
           <Form>
-            <InputField name="title" placeholder="title" label="Title" />
-            <InputField name="preparationTime" placeholder="preparation time" label="Preparation time" />
+            <InputField name="title" placeholder="title" label="Title"/>
+            <InputField name="preparationTime" placeholder="preparation time" label="Preparation time"/>
             <Box mt={4}>
               <InputField
                 textarea
@@ -70,4 +74,4 @@ const EditRecipe = ({}) => {
   );
 };
 
-export default withApollo({ ssr: false })(EditRecipe);
+export default withApollo({ssr: false})(EditRecipe);

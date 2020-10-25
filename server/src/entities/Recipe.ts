@@ -1,4 +1,4 @@
-import { ObjectType, Field, Int } from "type-graphql";
+import {ObjectType, Field, Int} from "type-graphql";
 import {
   Entity,
   Column,
@@ -9,8 +9,8 @@ import {
   ManyToOne,
   OneToMany,
 } from "typeorm";
-import { User } from "./User";
-import { Updoot } from "./Updoot";
+import {User} from "./User";
+import {Updoot} from "./Updoot";
 
 @ObjectType()
 @Entity()
@@ -32,10 +32,10 @@ export class Recipe extends BaseEntity {
   preparation!: string;
 
   @Field()
-  @Column({ type: "int", default: 0 })
+  @Column({type: "int", default: 0})
   points!: number;
 
-  @Field(() => Int, { nullable: true })
+  @Field(() => Int, {nullable: true})
   voteStatus: number | null; // 1 or -1 or null
 
   @Field()

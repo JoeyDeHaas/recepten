@@ -59,6 +59,7 @@ const Index = () => {
           )}
         </Stack>
       )}
+
       {data && data.recipes.hasMore ? (
         <Flex>
           <Button

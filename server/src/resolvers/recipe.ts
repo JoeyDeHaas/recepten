@@ -12,12 +12,12 @@ import {
   Root,
   UseMiddleware,
 } from "type-graphql";
-import { getConnection } from "typeorm";
-import { Recipe } from "../entities/Recipe";
-import { Updoot } from "../entities/Updoot";
-import { User } from "../entities/User";
-import { isAuth } from "../middleware/isAuth";
-import { MyContext } from "../types";
+import {getConnection} from "typeorm";
+import {Recipe} from "../entities/Recipe";
+import {Updoot} from "../entities/Updoot";
+import {User} from "../entities/User";
+import {isAuth} from "../middleware/isAuth";
+import {MyContext} from "../types";
 
 @InputType()
 class RecipeInput {
@@ -45,14 +45,14 @@ export class RecipeResolver {
   }
 
   @FieldResolver(() => User)
-  creator(@Root() recipe: Recipe, @Ctx() { userLoader }: MyContext) {
+  creator(@Root() recipe: Recipe, @Ctx() {userLoader}: MyContext) {
     return userLoader.load(recipe.creatorId);
   }
 
-  @FieldResolver(() => Int, { nullable: true })
+  @FieldResolver(() => Int, {nullable: true})
   async voteStatus(
     @Root() recipe: Recipe,
-    @Ctx() { updootLoader, req }: MyContext
+    @Ctx() {updootLoader, req}: MyContext
   ) {
     if (!req.session.userId) {
       return null;
@@ -71,33 +71,23 @@ export class RecipeResolver {
   async vote(
     @Arg("recipeId", () => Int) recipeId: number,
     @Arg("value", () => Int) value: number,
-    @Ctx() { req }: MyContext
+    @Ctx() {req}: MyContext
   ) {
     const isUpdoot = value !== -1;
     const realValue = isUpdoot ? 1 : -1;
-    const { userId } = req.session;
+    const {userId} = req.session;
 
-    const updoot = await Updoot.findOne({ where: { recipeId, userId } });
+    const updoot = await Updoot.findOne({where: {recipeId, userId}});
 
-    // the user has voted on the recipe before
-    // and they are changing their vote
     if (updoot && updoot.value !== realValue) {
       await getConnection().transaction(async (tm) => {
         await tm.query(
-          `
-    update updoot
-    set value = $1
-    where "recipeId" = $2 and "userId" = $3
-        `,
+            `update updoot set value = $1 where "recipeId" = $2 and "userId" = $3`,
           [realValue, recipeId, userId]
         );
 
         await tm.query(
-          `
-          update recipe
-          set points = points + $1
-          where id = $2
-        `,
+            `update recipe set points = points + $1 where id = $2`,
           [2 * realValue, recipeId]
         );
       });
@@ -105,19 +95,12 @@ export class RecipeResolver {
       // has never voted before
       await getConnection().transaction(async (tm) => {
         await tm.query(
-          `
-    insert into updoot ("userId", "recipeId", value)
-    values ($1, $2, $3)
-        `,
+            `insert into updoot ("userId", "recipeId", value) values ($1, $2, $3)`,
           [userId, recipeId, realValue]
         );
 
         await tm.query(
-          `
-    update recipe
-    set points = points + $1
-    where id = $2
-      `,
+            `update recipe set points = points + $1 where id = $2`,
           [realValue, recipeId]
         );
       });
@@ -128,12 +111,11 @@ export class RecipeResolver {
   @Query(() => PaginatedRecipes)
   async recipes(
     @Arg("limit", () => Int) limit: number,
-    @Arg("cursor", () => String, { nullable: true }) cursor: string | null
+    @Arg("cursor", () => String, {nullable: true}) cursor: string | null
   ): Promise<PaginatedRecipes> {
     // 20 -> 21
     const realLimit = Math.min(50, limit);
     const reaLimitPlusOne = realLimit + 1;
-
     const replacements: any[] = [reaLimitPlusOne];
 
     if (cursor) {
@@ -141,31 +123,9 @@ export class RecipeResolver {
     }
 
     const recipes = await getConnection().query(
-      `
-    select p.*
-    from recipe p
-    ${cursor ? `where p."createdAt" < $2` : ""}
-    order by p."createdAt" DESC
-    limit $1
-    `,
+      `select r.* from recipe r ${cursor ? `where p."createdAt" < $2` : ""} order by p."createdAt" DESC limit $1`,
       replacements
     );
-
-    // const qb = getConnection()
-    //   .getRepository(Recipe)
-    //   .createQueryBuilder("p")
-    //   .innerJoinAndSelect("p.creator", "u", 'u.id = p."creatorId"')
-    //   .orderBy('p."createdAt"', "DESC")
-    //   .take(reaLimitPlusOne);
-
-    // if (cursor) {
-    //   qb.where('p."createdAt" < :cursor', {
-    //     cursor: new Date(parseInt(cursor)),
-    //   });
-    // }
-
-    // const recipes = await qb.getMany();
-    // console.log("recipes: ", recipes);
 
     return {
       recipes: recipes.slice(0, realLimit),
@@ -173,7 +133,7 @@ export class RecipeResolver {
     };
   }
 
-  @Query(() => Recipe, { nullable: true })
+  @Query(() => Recipe, {nullable: true})
   recipe(@Arg("id", () => Int) id: number): Promise<Recipe | undefined> {
     return Recipe.findOne(id);
   }
@@ -182,7 +142,7 @@ export class RecipeResolver {
   @UseMiddleware(isAuth)
   async createRecipe(
     @Arg("input") input: RecipeInput,
-    @Ctx() { req }: MyContext
+    @Ctx() {req}: MyContext
   ): Promise<Recipe> {
     return Recipe.create({
       ...input,
@@ -190,19 +150,19 @@ export class RecipeResolver {
     }).save();
   }
 
-  @Mutation(() => Recipe, { nullable: true })
+  @Mutation(() => Recipe, {nullable: true})
   @UseMiddleware(isAuth)
   async updateRecipe(
     @Arg("id", () => Int) id: number,
     @Arg("title") title: string,
     @Arg("preparation") preparation: string,
     @Arg("preparationTime") preparationTime: string,
-    @Ctx() { req }: MyContext
+    @Ctx() {req}: MyContext
   ): Promise<Recipe | null> {
     const result = await getConnection()
       .createQueryBuilder()
       .update(Recipe)
-      .set({ title, preparation, preparationTime })
+      .set({title, preparation, preparationTime})
       .where('id = :id and "creatorId" = :creatorId', {
         id,
         creatorId: req.session.userId,
@@ -217,21 +177,10 @@ export class RecipeResolver {
   @UseMiddleware(isAuth)
   async deleteRecipe(
     @Arg("id", () => Int) id: number,
-    @Ctx() { req }: MyContext
+    @Ctx() {req}: MyContext
   ): Promise<boolean> {
-    // not cascade way
-    // const recipe = await Recipe.findOne(id);
-    // if (!recipe) {
-    //   return false;
-    // }
-    // if (recipe.creatorId !== req.session.userId) {
-    //   throw new Error("not authorized");
-    // }
+    await Recipe.delete({id, creatorId: req.session.userId});
 
-    // await Updoot.delete({ recipeId: id });
-    // await Recipe.delete({ id });
-
-    await Recipe.delete({ id, creatorId: req.session.userId });
     return true;
   }
 }

@@ -1,16 +1,10 @@
-import { Entity, BaseEntity, ManyToOne, PrimaryColumn, Column } from "typeorm";
-import { User } from "./User";
-import { Recipe } from "./Recipe";
-
-// m to n
-// many to many
-// user <-> recipes
-// user -> join table <- recipes
-// user -> updoot <- recipes
+import {Entity, BaseEntity, ManyToOne, PrimaryColumn, Column} from "typeorm";
+import {User} from "./User";
+import {Recipe} from "./Recipe";
 
 @Entity()
 export class Updoot extends BaseEntity {
-  @Column({ type: "int" })
+  @Column({type: "int"})
   value: number;
 
   @PrimaryColumn()

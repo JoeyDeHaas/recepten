@@ -1,8 +1,6 @@
-import { Updoot } from "../entities/Updoot";
+import {Updoot} from "../entities/Updoot";
 import DataLoader from "dataloader";
 
-// [{recipeId: 5, userId: 10}]
-// [{recipeId: 5, userId: 10, value: 1}]
 export const createUpdootLoader = () =>
   new DataLoader<{ recipeId: number; userId: number }, Updoot | null>(
     async (keys) => {
